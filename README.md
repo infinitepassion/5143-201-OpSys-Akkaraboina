@@ -1,6 +1,6 @@
 # 5143-201-OpSys-Akkaraboina
 
-![Manju Yadav Akkaraboina](https://www.facebook.com/photo.php?fbid=1477618838919127&l=9e52b2967c)
+![Manju Yadav Akkaraboina](https://s27.postimg.org/cf10j2g7n/14708162_1477618838919127_2119554608786355470_n.jpg)
 
 First Name : Manju Yadav
 
