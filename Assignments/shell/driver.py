@@ -233,7 +233,7 @@ def function(cmd) :
 	elif '!' in cmd[0] :
 		if int(cmd[0].strip( '!')):
 			hist_num=cmd[0]
-			c=0
+			c=1
 			os.system('touch output.txt')
 			num=int(hist_num.strip( '!'))
 			fopen=open("history.txt",'r')
@@ -241,7 +241,9 @@ def function(cmd) :
 			for i in fopen:
 				if c==num:
 					hist_cmd=i
-			print hist_cmd
+					break
+				else: 
+					c=c+1
 			identify_cmd(hist_cmd)
 		else :
 			os.system('touch output.txt')
