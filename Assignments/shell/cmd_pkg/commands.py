@@ -1,5 +1,7 @@
+#Importing all the commands from 'cmd_pkg'
 from cmd_pkg import ls
 from cmd_pkg import mkdir
+from cmd_pkg import cd
 from cmd_pkg import pwd
 from cmd_pkg import cp
 from cmd_pkg import mv
@@ -14,5 +16,4 @@ from cmd_pkg import wc
 from cmd_pkg import history
 from cmd_pkg import chmod
 from cmd_pkg import sort
-from cmd_pkg import cd
 from cmd_pkg import who
