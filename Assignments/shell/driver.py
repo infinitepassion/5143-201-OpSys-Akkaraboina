@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Code is written in python
 Execute command : python shell.py
@@ -23,12 +24,17 @@ import os
 	@Returns: None
 	"""
 def identify_cmd(cmd):
+	history_open=open("history.txt",'a')
 	cmd_copy=cmd
 	cmd_copy=cmd_copy.split()
-	list_history.append(cmd)
-	while ( cmd_copy[0] != "exit"):
-		#checking for '|' redirect operators if given by the user
-		if '|' in cmd: # '|' pipe the output of command1 to the input of command
+	history_open.write(cmd)
+	history_open.write("\n")
+	history_open.close()
+	# list_history.append(cmd)
+	while  cmd_copy[0] != "exit" :
+	# or cmd_copy!=""):
+# checking for '|' redirect operators if given by the user
+		if '|' in cmd: 
 			flag=1
 			cmd=cmd.split('|')
 			cmd[0]=cmd[0].strip()
@@ -37,14 +43,17 @@ def identify_cmd(cmd):
 			cmd2=str(cmd[1])
 			function(cmd1)
 			p_file=open("output.txt",'r')
-			os.system('touch outputg.txt')
-			p1_file=open("output.txt",'w')
+			p1_file=open("outputg.txt",'w')
 			for line in p_file :
 				p1_file.write(line)
-			new_cmd= cmd2 + " " + "output.txt"
-			function(new_cmd)
 			p_file.close()
 			p1_file.close()
+			new_cmd= cmd2 + " " + "outputg.txt"
+			function(new_cmd)
+			printfile = open("output.txt",'r')
+			for line in  printfile:
+				if line.rstrip():
+					print(line)
 		#checking for '>>' redirect operators if given by the user
 		elif '>>' in cmd: # append standard output to a file
 			cmd=cmd.split('>>')
@@ -52,20 +61,20 @@ def identify_cmd(cmd):
 			cmd[1]=cmd[1].strip()
 			cmd1=str(cmd[0])
 			cmd2=str(cmd[1])
-			# print(cmd2)
 			function(cmd1)
 			if os.path.isfile(cmd2):
 				outfile=open(cmd2,'a')
 				infile=open("output.txt",'r')
-				append=infile.read()
-				outfile.write(append)
+				outfile.write("\n")
+				for line in infile:
+					outfile.write(line)
 			else :
 				print ("file doesn't exist")
 			infile.close()
 			outfile.close()
-		#checking for '>' redirect operators if given by the user
+			os.system('touch output.txt') 
+#checking for '>' redirect operators if given by the user
 		elif '>' in cmd and len(cmd_copy)!=5 : #redirect standard output to a file
-			flag=1
 			cmd=cmd.split('>')
 			cmd[0]=cmd[0].strip()
 			cmd[1]=cmd[1].strip()
@@ -75,42 +84,49 @@ def identify_cmd(cmd):
 			printfile = open("output.txt",'r')
 			writefile=open(cmd2,'w')
 			for line in  printfile:
-				writefile.write(line)
-		#checking for '<' redirect operators if given by the user
-		elif '<' in cmd : #redirect standard input from a file
+				writefile.write(line) 
+#checking for '<' redirect operators if given by the user
+		elif '<' in cmd :
 			flag=1
 			cmd=cmd.split('<')
 			cmd[0]=cmd[0].strip()
 			cmd[1]=cmd[1].strip()
-			new_cmd=cmd[0]+ " "+cmd[1]
-			# print(new_cmd)
-			function(new_cmd)
-			op=open("output.txt",'r')
-			for line in op:
-				print(line)
-			op.close()
-			c="rm output.txt"
-			c=c.split()
-			commands.rm.rm(c)
+			if os.path.isfile(cmd[1]):
+			# identify_cmd(cmd[1])
+			# p_file=open("output.txt",'r')
+			# p1_file=open("outputg.txt",'w')
+			# for line in p_file :
+				# p1_file.write(line)
+			# p_file.close()
+			# p1_file.close()
+			# print( cmd[0]+ ' ' + cmd[1])
+				os.system('touch output.txt') 
+				identify_cmd (cmd[0]+ ' ' + cmd[1])
+				c="rm output.txt"
+				c=c.split()
+				commands.rm.rm(c)
+			else :
+				print "invalid file"
 			
 		else :
-			# print(cmd)
 			# os.system('touch output.txt')
 			function(cmd)
 			# print("printing")
 			op=open("output.txt",'r')
 			for line in op:
-				print(line)
+				if line.rstrip():
+					print(line)
 			op.close()
 			c="rm output.txt"
 			c=c.split()
 			commands.rm.rm(c)
-			
-		print("% ",end='')
-		cmd=input()
-		list_history.append(cmd)
+		cmd=raw_input("% ")
 		cmd_copy=cmd
+		history_open=open("history.txt",'a')
+		history_open.write(cmd)
+		history_open.write("\n")
 		cmd_copy=cmd_copy.split()
+		history_open.close()
 	"""
 	@Name: function
 	@Description: Condition that drives the shell environment
@@ -199,7 +215,8 @@ def function(cmd) :
 		t.join()
 	#checking for 'history' command in command line arguments if given by the user
 	elif cmd[0]=='history':
-		t13=threading.Thread(target=commands.history.history(list_history),args=(list_history,))
+		file="history.txt"
+		t13=threading.Thread(target=commands.history.history(file),args=(file,))
 		t13.start()
 		t13.join()
 	#checking for 'chmod' command in command line arguments if given by the user
@@ -213,18 +230,32 @@ def function(cmd) :
 		t.start()
 		t.join()
 	#checking for '!x' command in command line arguments if given by the user
-	elif '!' in cmd[0]:
-		hist_num=cmd[0]
-		os.system('touch output.txt')
-		num=int(hist_num.strip( '!'))
-		print (list_history[num])
-		identify_cmd(list_history[num-1])
+	elif '!' in cmd[0] :
+		if int(cmd[0].strip( '!')):
+			hist_num=cmd[0]
+			c=0
+			os.system('touch output.txt')
+			num=int(hist_num.strip( '!'))
+			fopen=open("history.txt",'r')
+			hist_cmd=""
+			for i in fopen:
+				if c==num:
+					hist_cmd=i
+			print hist_cmd
+			identify_cmd(hist_cmd)
+		else :
+			os.system('touch output.txt')
+			print "-bash: ",
+			print cmd[0],
+			print ": event not found"
 	else:
 		print("Invalid command")
 		os.system('touch output.txt')
 		
 if __name__ == '__main__':
-	list_history=[]
-	print("% ",end='')
-	cmd=input()
+	cmd=raw_input("% ")
 	identify_cmd(cmd)
+	# history_open.write(cmd)
+	
+
+	
