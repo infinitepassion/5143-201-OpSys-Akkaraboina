@@ -48,10 +48,19 @@ Integrated all different snippets from team members.
 Soon after Spring break, every team member put together their efforts to complete project on time.It almost took 10 days together to integrate all snippets and to make sure it works as desired.
 
 ## Visualization of Participation in Pie Chart.
-5143-201-OpSys-Akkaraboina/Assignments/cpu_scheduling/Visualization of Participation in Pie Chart.jpg
+![click here](
+5143-201-OpSys-Akkaraboina/Assignments/cpu_scheduling/Visualization of Participation in Pie Chart.jpg)
 
 ## Readme.md 
-5143-201-OpSys-Akkaraboina/Assignments/cpu_scheduling/README.md
+![click here](5143-201-OpSys-Akkaraboina/Assignments/cpu_scheduling/README.md)
 
 
 ## Files in project.
+
+-We have three file names simulationa.py, simulationb.py , simulationc.py seperately to run for the three input files.
+-We have a package file "componets" where each file has different modules of the simulation
+-The files in package arw loadfiiles, event files and scheduling files
+-Our simulation file calls the scheduling.py file to perform all the simulation activities.
+-This file acts as a center to the all the programs.
+-We read the entire input data into dictionaries and then read the data dictionary and schedule our events.
+-We have a directory input_data, which has all the input source files and the output files.
