@@ -52,7 +52,7 @@ Soon after Spring break, every team member put together their efforts to complet
 
 
 ## Readme.md 
-![click here](5143-201-OpSys-Akkaraboina/Assignments/cpu_scheduling/README.md)
+![click here](https://github.com/infinitepassion/5143-201-OpSys-Akkaraboina/blob/master/Assignments/cpu_scheduling/README.md)
 
 
 ## Files in project.
