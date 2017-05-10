@@ -48,7 +48,6 @@ Integrated all different snippets from team members.
 Soon after Spring break, every team member put together their efforts to complete project on time.It almost took 10 days together to integrate all snippets and to make sure it works as desired.
 
 ## Visualization of Participation in Pie Chart.
-[here](./Visualization of Participation in Pie Chart.jpg)
 5143-201-OpSys-Akkaraboina/Assignments/cpu_scheduling/Visualization of Participation in Pie Chart.jpg
 
 ## Readme.md 
